@@ -3,7 +3,10 @@
 # Update the lock file, with new pinned versions
 nix flake update --flake .
 
-# TODO: commit changes to git, then deploy
+# Save changes to git
+git add *.{nix,lock}
+git commit -m "nix flake update"
+git push
 
 # Deploy to to /etc/nixos
 sudo cp *.{nix,lock} /etc/nixos/
