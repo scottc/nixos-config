@@ -10,3 +10,4 @@ sudo cp *.{nix,lock} /etc/nixos/
 
 # Apply Build
 sudo nixos-rebuild switch --flake /etc/nixos#nixos
+
