@@ -24,7 +24,7 @@
     
     # pkgs.git
     pkgs.jujutsu # A Distributed VCS, frontend like git, but with multiple backends, like git.
-    pkgs.gg-jj # a gui for jujutsu
+    pkgs.gg # a gui for jujutsu
 
     pkgs.lutris
     # pkgs.space-cadet-pinball
@@ -43,7 +43,8 @@
     pkgs.lapce # Code editor
     pkgs.helix # Code editor
     pkgs.zed-editor # depends on nodejs, which needs to be compiled from source and last time laptop went unresponsive
-    # pkgs.vscodium
+    pkgs.vscodium # Code editor
+    
     pkgs.superTuxKart
     pkgs.gimp
     pkgs.inkscape
