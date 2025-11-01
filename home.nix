@@ -24,7 +24,7 @@
 
     # VCS ((Distributed) Version Control Systems)
     pkgs.jujutsu # A Distributed VCS, frontend like git, but with multiple backends, like git.
-    pkgs.gg # a gui for jujutsu
+    pkgs.gg-jj # a gui for jujutsu
     # pkgs.git
 
     # AI - Artifical Inteligence
