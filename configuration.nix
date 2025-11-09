@@ -20,9 +20,8 @@
     max-silent-time = 1200;  # Timeout (seconds) for builds with no output (0 disables)
   };
 
-  # Set environment variable for the nix-daemon systemd service
   systemd.services.nix-daemon.environment = {
-    NIX_CURL_FLAGS = "-4";  # Force IPv4-only for curl in Nix downloads
+    NIX_CURL_FLAGS = "-4";  # Force IPv4-only for curl in Nix downloads, a workaround for "github:oxalica/rust-overlay", a fix for my home network... environment...
   };
 
 
