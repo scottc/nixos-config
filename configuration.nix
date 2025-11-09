@@ -37,7 +37,15 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  #networking.networkmanager.enable = true;
+  networking = {
+    networkmanager = {
+      enable = true;
+      dns = "systemd-resolved";  # Or "default-src" for DHCP
+    };
+    nameservers = [ "8.8.8.8" "1.1.1.1" ];
+  };
+  services.resolved.enable = true;
   # networking.nameservers = [ "8.8.8.8" "1.1.1.1" ];
   # networking.enableIPv6 = false;
   # networking.firewall.enable = false;
