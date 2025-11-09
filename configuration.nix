@@ -10,11 +10,21 @@
       ./hardware-configuration.nix
               # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix
       inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t550
-      
+
       inputs.home-manager.nixosModules.home-manager
     ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    connect-timeout = 30;  # Timeout (seconds) for establishing connections to binary caches/servers
+    max-silent-time = 1200;  # Timeout (seconds) for builds with no output (0 disables)
+  };
+
+  # Set environment variable for the nix-daemon systemd service
+  systemd.services.nix-daemon.environment = {
+    NIX_CURL_FLAGS = "-4";  # Force IPv4-only for curl in Nix downloads
+  };
+
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -57,13 +67,13 @@
   # Enable the GNOME Desktop Environment.
   # services.displayManager.gdm.enable = true;
   # services.desktopManager.gnome.enable = true;
-  
+
   # programs.hyprland.enable = true;
   # # Optional, hint electron apps to use wayland:
   # environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  
+
   services.desktopManager.cosmic.enable = true;
-  
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "au";
@@ -121,16 +131,16 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget 
+  #  wget
   ];
-  
-  
+
+
       # mesa # steam depends on mesa for driver support? also requires hardware.graphics.enabled = true; ?
     # vulkan-tools
     # glxinfo
     # mesa-utils
     # steam #.withLibraries # depends on graphics drivers, vulkan and opengl... aka pkgs.mesa, hardware.graphics.enable = true;
-    
+
   programs.steam = {
     enable = true;
     # remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
@@ -143,8 +153,8 @@
     enable = true;
     lfs.enable = true;
   };
-  
-  
+
+
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
