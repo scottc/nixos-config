@@ -21,11 +21,11 @@
     # Web Browsers
     pkgs.brave
     pkgs.ladybird
-    # pkgs.servo
+    pkgs.servo
 
     # VCS ((Distributed) Version Control Systems)
-    pkgs.jujutsu # A Distributed VCS, frontend like git, but with multiple backends, like git.
-    pkgs.gg-jj # a gui for jujutsu
+    # pkgs.jujutsu # A Distributed VCS, frontend like git, but with multiple backends, like git.
+    # pkgs.gg-jj # a gui for jujutsu
     # pkgs.git
 
     # AI - Artifical Inteligence

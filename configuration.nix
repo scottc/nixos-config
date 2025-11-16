@@ -79,7 +79,12 @@
   # # Optional, hint electron apps to use wayland:
   # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
-  services.desktopManager.cosmic.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.settings.General.DisplayServer = "wayland";
+  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
