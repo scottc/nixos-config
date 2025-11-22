@@ -14,6 +14,10 @@
       inputs.home-manager.nixosModules.home-manager
     ];
 
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;         # gives the Blueman GUI (highly recommended on KDE)
+
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     connect-timeout = 30;  # Timeout (seconds) for establishing connections to binary caches/servers
