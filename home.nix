@@ -33,6 +33,7 @@
 
     # Social & Communications
     pkgs.hexchat
+    pkgs.python313Packages.nomadnet
 
     # Multimedia
     pkgs.mpv
