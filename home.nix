@@ -33,7 +33,8 @@
 
     # Social & Communications
     pkgs.hexchat
-    pkgs.python313Packages.nomadnet
+    pkgs.python313Packages.nomadnet # reticulum client
+    pkgs.rns # reticulum service
 
     # Multimedia
     pkgs.mpv
