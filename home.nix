@@ -39,6 +39,7 @@
     # Multimedia
     pkgs.mpv
     pkgs.lbry
+    pkgs.yt-dlp # Maintained youtube-dl fork.
 
     # Office Productivity Apps
     pkgs.libreoffice
