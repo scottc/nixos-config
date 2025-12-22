@@ -1,15 +1,12 @@
 #!/bin/sh
 
-# Fix dirty warning
-git add *.{nix,lock,sh}
-
 # Update the lock file, with new pinned versions
 nix flake update --flake .
 
-# Fix dirty warning
+# Add to git for commit
 git add *.{nix,lock,sh}
 
-# Deploy to to /etc/nixos
+# [Optional] Deploy to to /etc/nixos
 sudo cp *.{nix,lock} /etc/nixos/
 
 # Apply Build
