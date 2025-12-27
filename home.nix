@@ -56,6 +56,7 @@
     # Games
     # pkgs.space-cadet-pinball
     # pkgs.superTuxKart
+    pkgs.pcsx2 # PS2 emulator
 
     # Shells
     # pkgs.kitty
