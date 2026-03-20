@@ -57,6 +57,7 @@
     # pkgs.space-cadet-pinball
     # pkgs.superTuxKart
     pkgs.pcsx2 # PS2 emulator
+    pkgs.doomrunner # doom launcher
 
     # Shells
     # pkgs.kitty
