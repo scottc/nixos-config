@@ -58,7 +58,10 @@
     # pkgs.superTuxKart
     pkgs.pcsx2 # PS2 emulator
     pkgs.doomrunner # doom launcher
-    pkgs.gzdoom
+    pkgs.freedoom # libre doom wads
+    pkgs.uzdoom # doom engine
+
+    #pkgs.gzdoom
     # chocolate-doom
     # crispy-doom
     # prboom-plus
