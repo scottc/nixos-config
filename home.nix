@@ -41,7 +41,7 @@
     # Multimedia
     pkgs.mpv
     pkgs.lbry
-    pkgs.yt-dlp # Maintained youtube-dl fork.
+    # pkgs.yt-dlp # Maintained youtube-dl fork.
 
     # Office Productivity Apps
     pkgs.libreoffice
@@ -56,10 +56,13 @@
     # Games
     # pkgs.space-cadet-pinball
     # pkgs.superTuxKart
+    # pkgs.ringracers # Dr. Robotnik's ring racers aka sonic kart doom mod
+    # pkgs.srb2 # super robo blast 2 # aka sonic doom mod
     pkgs.pcsx2 # PS2 emulator
-    pkgs.doomrunner # doom launcher
+    # pkgs.doomrunner # doom launcher
     pkgs.freedoom # libre doom wads
-    pkgs.uzdoom # doom engine
+    # pkgs.uzdoom # doom engine
+    pkgs.gzdoom # doom engine
 
     #pkgs.gzdoom
     # chocolate-doom
