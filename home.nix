@@ -59,7 +59,8 @@
     # pkgs.ringracers # Dr. Robotnik's ring racers aka sonic kart doom mod
     # pkgs.srb2 # super robo blast 2 # aka sonic doom mod
     pkgs.pcsx2 # PS2 emulator
-    # pkgs.doomrunner # doom launcher
+
+    pkgs.doomrunner # doom launcher, `which uzdoom` to locate the engine
     pkgs.freedoom # libre doom wads
     pkgs.uzdoom # doom engine
     # pkgs.gzdoom # doom engine
