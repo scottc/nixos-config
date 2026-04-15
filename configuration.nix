@@ -99,6 +99,11 @@
     variant = "";
   };
 
+  # Enable input-remapper service, for keyboard macros
+  services.input-remapper.enable = true;
+
+
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 

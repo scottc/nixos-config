@@ -117,8 +117,6 @@
   programs.home-manager.enable = true;
 
 
-  services.input-remapper.enable = true;
-
   # programs.kitty.enable = true; # required for the default Hyprland config
   # wayland.windowManager.hyprland.enable = true; # enable Hyprland
 
