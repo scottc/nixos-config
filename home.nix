@@ -50,6 +50,9 @@
     pkgs.gimp
     pkgs.inkscape
 
+    # Macros
+    pkgs.input-remapper
+
     # Game Managers
     # pkgs.lutris
 
@@ -58,11 +61,11 @@
     # pkgs.superTuxKart
     # pkgs.ringracers # Dr. Robotnik's ring racers aka sonic kart doom mod
     # pkgs.srb2 # super robo blast 2 # aka sonic doom mod
-    pkgs.pcsx2 # PS2 emulator
+    # pkgs.pcsx2 # PS2 emulator
 
-    pkgs.doomrunner # doom launcher, `which uzdoom` to locate the engine
-    pkgs.freedoom # libre doom wads
-    pkgs.uzdoom # doom engine
+    # pkgs.doomrunner # doom launcher, `which uzdoom` to locate the engine
+    # pkgs.freedoom # libre doom wads
+    # pkgs.uzdoom # doom engine
     # pkgs.gzdoom # doom engine
 
     #pkgs.gzdoom
@@ -80,7 +83,7 @@
     pkgs.zed-editor # Code editor
     pkgs.vscodium # Code editor
 
-    # Compilers - Zig... probably install this in a nix develop environment, not per user.
+    # Compilers - Zig... probably install this in a per nix develop environment, not per user.
     # pkgs.zig # Zig Compiler
     # pkgs.zls # Zig Language Server
 
