@@ -50,9 +50,6 @@
     pkgs.gimp
     pkgs.inkscape
 
-    # Macros
-    # pkgs.input-remapper
-
     # Game Managers
     # pkgs.lutris
 
@@ -73,6 +70,7 @@
     # crispy-doom
     # prboom-plus
 
+    pkgs.ut1999
 
     # Shells
     # pkgs.kitty
