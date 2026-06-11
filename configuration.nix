@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, ... }:
+{ inputs, config, pkgs, hermes-agent, ... }:
 
 {
   imports =
@@ -128,6 +128,8 @@
     # settings.model.default = "anthropic/claude-sonnet-4";  # or your preferred model
     # environmentFiles = [ config.sops.secrets."hermes-env".path ];  # for API keys
     addToSystemPackages = true;  # puts `hermes` CLI on PATH + shares state
+
+    package = hermes-agent.packages.${pkgs.system}.full;   # .full or .default # This pulls in edge-tts + web + desktop etc.
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -143,6 +145,17 @@
       # brave
     ];
   };
+
+  # an AI Agent
+  #users.users.hermes = {
+  #  isNormalUser = true;
+  #  description = "hermes";
+  #  extraGroups = [ ];
+  #  packages = with pkgs; [
+      #
+  #  ];
+  #};
+
 
   home-manager = {
     extraSpecialArgs = { inherit inputs; };

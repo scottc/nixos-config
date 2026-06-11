@@ -35,7 +35,10 @@
 
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       # system = "x86_64-linux";
-      specialArgs = { inherit inputs system; };
+      specialArgs = {
+        inherit inputs system;
+        inherit (inputs) hermes-agent;
+      };
       modules = [
         hermes-agent.nixosModules.default
         ./configuration.nix

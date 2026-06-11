@@ -93,10 +93,6 @@
     #
     # TODO: enable a nix language server to help lint these nix files...
     # pkgs.nil # nil (nix) Language Server
-    #
-
-    # Text to speech, for hermes AI assistants
-    pkgs.python314Packages.edge-tts
   ];
 
   # programs.steam = {
