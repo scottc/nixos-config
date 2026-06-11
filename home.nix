@@ -70,7 +70,7 @@
     # crispy-doom
     # prboom-plus
 
-    pkgs.ut1999
+    # pkgs.ut1999
 
     # Shells
     # pkgs.kitty

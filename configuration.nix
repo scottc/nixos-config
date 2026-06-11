@@ -123,6 +123,13 @@
     #media-session.enable = true;
   };
 
+  services.hermes-agent = {
+    enable = true;
+    # settings.model.default = "anthropic/claude-sonnet-4";  # or your preferred model
+    # environmentFiles = [ config.sops.secrets."hermes-env".path ];  # for API keys
+    addToSystemPackages = true;  # puts `hermes` CLI on PATH + shares state
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
