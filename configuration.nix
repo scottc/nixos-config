@@ -128,8 +128,26 @@
     # settings.model.default = "anthropic/claude-sonnet-4";  # or your preferred model
     # environmentFiles = [ config.sops.secrets."hermes-env".path ];  # for API keys
     addToSystemPackages = true;  # puts `hermes` CLI on PATH + shares state
-
     package = hermes-agent.packages.${pkgs.system}.full;   # .full or .default # This pulls in edge-tts + web + desktop etc.
+    # serviceConfig = {
+    #      # 1. Deny access to the rest of the filesystem
+    #      ProtectSystem = "strict";
+    #      ProtectHome = "tmpfs"; # Replaces your real /home with an empty tmpfs
+    #      # 2. Specifically bind the allowed paths back in
+    #      BindPaths = [
+    #        "/var/lib/hermes"
+    #        "/home/anon/.hermes"
+    #      ];
+    #      # 3. Explicitly allow read/write to those paths
+    #      ReadWritePaths = [
+    #        "/var/lib/hermes"
+    #        "/home/anon/.hermes"
+    #      ];
+    #      # 4. Further hardening
+    #      RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX"; # Only allow networking
+    #      NoNewPrivileges = true;
+    #      PrivateDevices = true;
+    # };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
