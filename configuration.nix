@@ -136,27 +136,28 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.anon = {
-    isNormalUser = true;
-    description = "anon";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-      # brave
-    ];
+  users.users = {
+      # Anonymous user
+      anon = {
+        isNormalUser = true;
+        description = "anon";
+        extraGroups = [ "networkmanager" "wheel" ];
+        packages = with pkgs; [
+          # Use home-manager instead.
+        ];
+      };
+      
+    # AI agent
+    hermes = {
+      #isNormalUser = true;
+      description = "hermes";
+      extraGroups = [ ];
+      packages = with pkgs; [
+        # Use home-manager instead.
+      ];
+    };
   };
-
-  # an AI Agent
-  #users.users.hermes = {
-  #  isNormalUser = true;
-  #  description = "hermes";
-  #  extraGroups = [ ];
-  #  packages = with pkgs; [
-      #
-  #  ];
-  #};
-
-
+  
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
