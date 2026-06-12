@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, hermes-agent, ... }:
+{ inputs, config, pkgs, hermes-agent, lib, ... }:
 
 {
   imports =
@@ -28,6 +28,27 @@
     NIX_CURL_FLAGS = "-4";  # Force IPv4-only for curl in Nix downloads, a workaround for "github:oxalica/rust-overlay", a fix for my home network... environment...
   };
 
+  systemd.services.hermes-agent = {
+    serviceConfig = {
+      # 1. Deny access to the rest of the filesystem
+      ProtectSystem = "strict";
+      ProtectHome = lib.mkForce "tmpfs"; # Replaces your real /home with an empty tmpfs
+      # 2. Specifically bind the allowed paths back in
+      BindPaths = [
+        "/var/lib/hermes"
+        "/home/anon/.hermes"
+      ];
+      # 3. Explicitly allow read/write to those paths
+      ReadWritePaths = [
+        "/var/lib/hermes"
+        "/home/anon/.hermes"
+      ];
+      # 4. Further hardening
+      RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX"; # Only allow networking
+      NoNewPrivileges = true;
+      PrivateDevices = true;
+    };
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -129,25 +150,6 @@
     # environmentFiles = [ config.sops.secrets."hermes-env".path ];  # for API keys
     addToSystemPackages = true;  # puts `hermes` CLI on PATH + shares state
     package = hermes-agent.packages.${pkgs.system}.full;   # .full or .default # This pulls in edge-tts + web + desktop etc.
-    # serviceConfig = {
-    #      # 1. Deny access to the rest of the filesystem
-    #      ProtectSystem = "strict";
-    #      ProtectHome = "tmpfs"; # Replaces your real /home with an empty tmpfs
-    #      # 2. Specifically bind the allowed paths back in
-    #      BindPaths = [
-    #        "/var/lib/hermes"
-    #        "/home/anon/.hermes"
-    #      ];
-    #      # 3. Explicitly allow read/write to those paths
-    #      ReadWritePaths = [
-    #        "/var/lib/hermes"
-    #        "/home/anon/.hermes"
-    #      ];
-    #      # 4. Further hardening
-    #      RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX"; # Only allow networking
-    #      NoNewPrivileges = true;
-    #      PrivateDevices = true;
-    # };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -164,7 +166,7 @@
           # Use home-manager instead.
         ];
       };
-      
+
     # AI agent # seems the service, already creates a hermes user, and the home is "/var/lib/hermes" ... Hmmm.... unsure how i feel about that.
     # hermes = {
       #isNormalUser = true;
@@ -175,7 +177,7 @@
     #  ];
     #};
   };
-  
+
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
