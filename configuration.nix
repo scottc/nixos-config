@@ -147,21 +147,24 @@
         ];
       };
       
-    # AI agent
-    hermes = {
+    # AI agent # seems the service, already creates a hermes user, and the home is "/var/lib/hermes" ... Hmmm.... unsure how i feel about that.
+    # hermes = {
       #isNormalUser = true;
-      description = "hermes";
-      extraGroups = [ ];
-      packages = with pkgs; [
-        # Use home-manager instead.
-      ];
-    };
+    #  description = "hermes";
+    #  extraGroups = [ ];
+    #  packages = with pkgs; [
+    #    # Use home-manager instead.
+    #  ];
+    #};
   };
   
   home-manager = {
     extraSpecialArgs = { inherit inputs; };
     users = {
+      # Anonymous user
       anon = import ./home.nix;
+      # AI agent
+      # hermes = import ./hermes.nix;
     };
   };
 
