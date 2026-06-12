@@ -28,27 +28,28 @@
     NIX_CURL_FLAGS = "-4";  # Force IPv4-only for curl in Nix downloads, a workaround for "github:oxalica/rust-overlay", a fix for my home network... environment...
   };
 
-  systemd.services.hermes-agent = {
-    serviceConfig = {
-      # 1. Deny access to the rest of the filesystem
-      ProtectSystem = "strict";
-      ProtectHome = lib.mkForce "tmpfs"; # Replaces your real /home with an empty tmpfs
-      # 2. Specifically bind the allowed paths back in
-      BindPaths = [
-        "/var/lib/hermes"
-        "/home/anon/.hermes"
-      ];
-      # 3. Explicitly allow read/write to those paths
-      ReadWritePaths = [
-        "/var/lib/hermes"
-        "/home/anon/.hermes"
-      ];
-      # 4. Further hardening
-      RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX"; # Only allow networking
-      NoNewPrivileges = true;
-      PrivateDevices = true;
-    };
-  };
+  # Doesn't seem to be working?
+  #systemd.services.hermes-agent = {
+  #  serviceConfig = {
+  #    # 1. Deny access to the rest of the filesystem
+  #    ProtectSystem = "strict";
+  #    ProtectHome = lib.mkForce "tmpfs"; # Replaces your real /home with an empty tmpfs
+  #    # 2. Specifically bind the allowed paths back in
+  #    BindPaths = [
+  #      "/var/lib/hermes"
+  #      "/home/anon/.hermes"
+  #    ];
+  #    # 3. Explicitly allow read/write to those paths
+  #    ReadWritePaths = [
+  #      "/var/lib/hermes"
+  #      "/home/anon/.hermes"
+  #    ];
+  #    # 4. Further hardening
+  #    RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX"; # Only allow networking
+  #    NoNewPrivileges = true;
+  #    PrivateDevices = true;
+  #  };
+  #};
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
