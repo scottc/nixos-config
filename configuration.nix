@@ -164,7 +164,7 @@
       anon = {
         isNormalUser = true;
         description = "anon";
-        extraGroups = [ "networkmanager" "wheel" ];
+        extraGroups = [ "networkmanager" "wheel" "hermes" ];
         packages = with pkgs; [
           # Use home-manager instead.
         ];
