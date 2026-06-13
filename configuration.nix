@@ -147,6 +147,8 @@
 
   services.hermes-agent = {
     enable = true;
+    container.enable = true;
+    container.hostUsers = [ "anon" ];
     # settings.model.default = "anthropic/claude-sonnet-4";  # or your preferred model
     # environmentFiles = [ config.sops.secrets."hermes-env".path ];  # for API keys
     addToSystemPackages = true;  # puts `hermes` CLI on PATH + shares state
