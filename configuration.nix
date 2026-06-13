@@ -185,6 +185,12 @@
     package = hermes-agent.packages.${pkgs.system}.full;   # .full or .default # This pulls in edge-tts + web + desktop etc.
   };
 
+  # Passwordless docker access, for `hermes chat`
+  security.sudo.extraRules = [{
+    users = [ "anon" ];
+    commands = [{ command = "/run/current-system/sw/bin/docker"; options = [ "NOPASSWD" ]; }];
+  }];
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
