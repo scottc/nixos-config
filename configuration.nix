@@ -149,8 +149,38 @@
     enable = true;
     container.enable = true;
     container.hostUsers = [ "anon" ];
+
     # settings.model.default = "anthropic/claude-sonnet-4";  # or your preferred model
     # environmentFiles = [ config.sops.secrets."hermes-env".path ];  # for API keys
+    environmentFiles = [ "/var/lib/hermes/hermes.env" ]; # plain text
+
+    # Good defaults for container mode
+    settings = {
+      model.default = "google/gemini-2.5-pro";        # or gemini-2.5-flash for cheaper/faster
+      model.fallback = "google/gemini-2.5-flash";
+
+      # Context & quality settings
+      context = {
+        maxTokens = 128000;      # Gemini 2.5 supports very large context
+        autoSummarize = true;
+      };
+
+      # Enable useful features
+      tools = {
+        enable = true;
+        autoApprove = [ "read_file" "list_dir" ];   # be careful with this
+      };
+
+      terminal.backend = "container";   # Best for container mode
+      sandbox.enable = true;
+
+      # Optional: nice to have
+      personality = {
+        style = "helpful, concise, and technically precise";
+      };
+    };
+
+
     addToSystemPackages = true;  # puts `hermes` CLI on PATH + shares state
     package = hermes-agent.packages.${pkgs.system}.full;   # .full or .default # This pulls in edge-tts + web + desktop etc.
   };
