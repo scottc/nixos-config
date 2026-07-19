@@ -11,11 +11,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # nix2411pkgs.url = "github:nixos/nixpkgs?ref=nixos-24.11";
-    hermes-agent.url = "github:NousResearch/hermes-agent";
+    # hermes-agent.url = "github:NousResearch/hermes-agent"; # temporary uninstalled.
     # See flake.lock for exact pinned versions.
   };
 
-  outputs = { nixpkgs, home-manager, nixos-hardware, hermes-agent, ... } @ inputs:
+  outputs = { nixpkgs, home-manager, nixos-hardware, 
+    # hermes-agent, # temporary uninstalled.
+    ... } @ inputs:
   let
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
@@ -40,7 +42,7 @@
         inherit (inputs) hermes-agent;
       };
       modules = [
-        hermes-agent.nixosModules.default
+        # hermes-agent.nixosModules.default # temporary uninstalled.
         ./configuration.nix
 
         # add your model from this list: https://github.com/NixOS/nixos-hardware/blob/master/flake.nix

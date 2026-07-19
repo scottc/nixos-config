@@ -2,7 +2,9 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, hermes-agent, lib, ... }:
+{ inputs, config, pkgs, 
+  # hermes-agent, # temporary uninstalled.
+  lib, ... }:
 
 {
   imports =
@@ -27,29 +29,6 @@
   systemd.services.nix-daemon.environment = {
     NIX_CURL_FLAGS = "-4";  # Force IPv4-only for curl in Nix downloads, a workaround for "github:oxalica/rust-overlay", a fix for my home network... environment...
   };
-
-  # Doesn't seem to be working?
-  #systemd.services.hermes-agent = {
-  #  serviceConfig = {
-  #    # 1. Deny access to the rest of the filesystem
-  #    ProtectSystem = "strict";
-  #    ProtectHome = lib.mkForce "tmpfs"; # Replaces your real /home with an empty tmpfs
-  #    # 2. Specifically bind the allowed paths back in
-  #    BindPaths = [
-  #      "/var/lib/hermes"
-  #      "/home/anon/.hermes"
-  #    ];
-  #    # 3. Explicitly allow read/write to those paths
-  #    ReadWritePaths = [
-  #      "/var/lib/hermes"
-  #      "/home/anon/.hermes"
-  #    ];
-  #    # 4. Further hardening
-  #    RestrictAddressFamilies = "AF_INET AF_INET6 AF_UNIX"; # Only allow networking
-  #    NoNewPrivileges = true;
-  #    PrivateDevices = true;
-  #  };
-  #};
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -145,45 +124,46 @@
     #media-session.enable = true;
   };
 
-  services.hermes-agent = {
-    enable = true;
-    container.enable = true;
-    container.hostUsers = [ "anon" ];
+  # temporarily uninstalled...
+  # services.hermes-agent = {
+  #   enable = true;
+  #   container.enable = true;
+  #   container.hostUsers = [ "anon" ];
 
-    # settings.model.default = "anthropic/claude-sonnet-4";  # or your preferred model
-    # environmentFiles = [ config.sops.secrets."hermes-env".path ];  # for API keys
-    environmentFiles = [ "/var/lib/hermes/hermes.env" ]; # plain text
+  #   # settings.model.default = "anthropic/claude-sonnet-4";  # or your preferred model
+  #   # environmentFiles = [ config.sops.secrets."hermes-env".path ];  # for API keys
+  #   environmentFiles = [ "/var/lib/hermes/hermes.env" ]; # plain text, You'll need to plugin your own API keys or whatever
 
-    # Good defaults for container mode
-    settings = {
-      model.default = "google/gemini-2.5-pro";        # or gemini-2.5-flash for cheaper/faster
-      model.fallback = "google/gemini-2.5-flash";
+  #   # Good defaults for container mode
+  #   settings = {
+  #     model.default = "google/gemini-2.5-pro";        # or gemini-2.5-flash for cheaper/faster
+  #     model.fallback = "google/gemini-2.5-flash";
 
-      # Context & quality settings
-      context = {
-        maxTokens = 128000;      # Gemini 2.5 supports very large context
-        autoSummarize = true;
-      };
+  #     # Context & quality settings
+  #     context = {
+  #       maxTokens = 128000;      # Gemini 2.5 supports very large context
+  #       autoSummarize = true;
+  #     };
 
-      # Enable useful features
-      tools = {
-        enable = true;
-        autoApprove = [ "read_file" "list_dir" ];   # be careful with this
-      };
+  #     # Enable useful features
+  #     tools = {
+  #       enable = true;
+  #       autoApprove = [ "read_file" "list_dir" ];   # be careful with this
+  #     };
 
-      terminal.backend = "container";   # Best for container mode
-      sandbox.enable = true;
+  #     terminal.backend = "container";   # Best for container mode
+  #     sandbox.enable = true;
 
-      # Optional: nice to have
-      personality = {
-        style = "helpful, concise, and technically precise";
-      };
-    };
+  #     # Optional: nice to have
+  #     personality = {
+  #       style = "helpful, concise, and technically precise";
+  #     };
+  #   };
 
 
-    addToSystemPackages = true;  # puts `hermes` CLI on PATH + shares state
-    package = hermes-agent.packages.${pkgs.system}.full;   # .full or .default # This pulls in edge-tts + web + desktop etc.
-  };
+  #   addToSystemPackages = true;  # puts `hermes` CLI on PATH + shares state
+  #   package = hermes-agent.packages.${pkgs.system}.full;   # .full or .default # This pulls in edge-tts + web + desktop etc.
+  # };
 
   # Passwordless docker access, for `hermes chat`
   security.sudo.extraRules = [{
