@@ -37,7 +37,9 @@
     # pkgs.python313Packages.nomadnet # reticulum client
     # pkgs.rns # reticulum service
 
-
+    # Screen Capture & streaming
+    pkgs.obs-studio
+    
     # Multimedia
     pkgs.mpv
     pkgs.lbry
