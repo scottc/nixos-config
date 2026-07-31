@@ -50,8 +50,9 @@
     pkgs.libreoffice
 
     # Creative Productivity Apps
-    pkgs.gimp
-    pkgs.inkscape
+    pkgs.gimp # raster graphics
+    pkgs.inkscape # vector graphics
+    pkgs.blender # 3d models
 
     # Game Managers
     # pkgs.lutris
