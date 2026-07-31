@@ -32,7 +32,8 @@
     # pkgs.lmstudio
 
     # Social & Communications
-    pkgs.hexchat
+    # pkgs.hexchat # gtk2 based irc client
+    pkgs.kdePackages.konversation # kde irc client
     pkgs.telegram-desktop
     # pkgs.python313Packages.nomadnet # reticulum client
     # pkgs.rns # reticulum service
