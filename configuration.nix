@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ inputs, config, pkgs, 
+{ inputs, config, pkgs,
   # hermes-agent, # temporary uninstalled.
   lib, ... }:
 
@@ -241,6 +241,15 @@
     lfs.enable = true;
   };
 
+
+  # Workaround for dynamically linked applications, we can redirect them to libraries specified here...
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc
+    zlib
+    openssl
+    curl
+  ];
 
 
   # Some programs need SUID wrappers, can be configured further or are
