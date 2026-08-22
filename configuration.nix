@@ -242,32 +242,34 @@
   };
 
 
-  # Workaround for dynamically linked applications, we can redirect them to libraries specified here...
-  # List of apps, that required these shared objects...:
-  # /home/anon/Projects/spirit-vale-overlay/node_modules/.bun/electrobun@1.18.1/node_modules/electrobun/bin/electrobun
-  # This is so we can keep track of what is needed or can be cleanned up.
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    stdenv.cc.cc
-    zlib
-    openssl
-    curl
-    # WebKit / GTK stack that electrobun needs
-    webkitgtk_4_1
-    gtk3
-    libsoup_3
-    glib
-    cairo
-    pango
-    gdk-pixbuf
-    # optional but often pulled in
-    librsvg
-    libayatana-appindicator
-    xorg.libX11
-    libxkbcommon
-    wayland
-    mesa
-  ];
+# Workaround for dynamically linked applications, we can redirect them to libraries specified here...
+# List of apps, that required these shared objects...:
+# /home/anon/Projects/spirit-vale-overlay/node_modules/.bun/electrobun@1.18.1/node_modules/electrobun/bin/electrobun
+# This is so we can keep track of what is needed or can be cleanned up.
+programs.nix-ld.enable = true;
+programs.nix-ld.libraries = with pkgs; [
+  stdenv.cc.cc
+  zlib
+  openssl
+  curl
+  # WebKit / GTK stack that electrobun needs
+  webkitgtk_4_1
+  gtk3
+  libsoup_3
+  glib
+  cairo
+  pango
+  gdk-pixbuf
+  # optional but often pulled in
+  librsvg
+  libayatana-appindicator
+  xorg.libX11
+  libxkbcommon
+  wayland
+  mesa
+  # npcap replacement
+  libpcap
+];
 
 
   # Some programs need SUID wrappers, can be configured further or are
