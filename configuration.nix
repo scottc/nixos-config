@@ -249,11 +249,13 @@
   # This is so we can keep track of what is needed or can be cleanned up.
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
+    # spirit-vale-overlay dependencies
     libxcb
     gtk3
     cairo
     gdk-pixbuf
-    libpcap # npcap replacement
+    gobject-introspection
+    libpcap # npcap replacement for spirit-vale-tools
   ];
   # In configuration.nix or a module
   security.wrappers.bun-pcap = {
