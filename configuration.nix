@@ -252,6 +252,7 @@
     libxcb
     gtk3
     cairo
+    gdk-pixbuf
     libpcap # npcap replacement
   ];
   # In configuration.nix or a module
