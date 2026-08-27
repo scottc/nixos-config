@@ -261,6 +261,14 @@ programs.nix-ld.libraries = with pkgs; [
   libpng # libpng16.so.16
   # spirit-vale-tools dependencies
   libpcap # libpcap.so
+
+  # suggested by grok... misc...
+  stdenv.cc.cc.lib   # libstdc++
+  webkitgtk_4_1      # webview (dlopen)
+  pango
+  harfbuzz
+  atk
+  libsoup_3
 ];
 # In configuration.nix or a module
 security.wrappers.bun-pcap = {
