@@ -249,6 +249,7 @@
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     libxcb
+    gtk3
     libpcap # npcap replacement
   ];
   # In configuration.nix or a module
