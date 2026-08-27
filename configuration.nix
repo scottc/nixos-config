@@ -256,7 +256,10 @@
     gdk-pixbuf # libgdk_pixbuf-2.0.so.0
     glib # libgobject-2.0.so.0
     libx11 # libX11.so.6
-    # spirit-vale-tools
+    libxrandr # libXrandr.so.2
+    libxtst # libXtst.so.6
+    libpng # libpng16.so.16
+    # spirit-vale-tools dependencies
     libpcap # libpcap.so
   ];
   # In configuration.nix or a module
