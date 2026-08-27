@@ -244,31 +244,31 @@
 
   # Workaround for dynamically linked applications, we can redirect them to libraries specified here...
   # List of apps, that required these shared objects...:
-  # /home/anon/Projects/spirit-vale-overlay
+  # /home/anon/Projects/spirit-vale-overlay (neutralinojs)
   # /home/anon/Projects/spirit-vale-tools
   # This is so we can keep track of what is needed or can be cleanned up.
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    # spirit-vale-overlay dependencies
-    libxcb # libxcb.so.1
-    gtk3 # libgtk-3.so.0
-    cairo # libcairo.so.2
-    gdk-pixbuf # libgdk_pixbuf-2.0.so.0
-    glib # libgobject-2.0.so.0
-    libx11 # libX11.so.6
-    libxrandr # libXrandr.so.2
-    libxtst # libXtst.so.6
-    libpng # libpng16.so.16
-    # spirit-vale-tools dependencies
-    libpcap # libpcap.so
-  ];
-  # In configuration.nix or a module
-  security.wrappers.bun-pcap = {
-    source = "${pkgs.bun}/bin/bun";
-    owner = "root";
-    group = "root";
-    capabilities = "cap_net_raw,cap_net_admin+eip";
-  };
+programs.nix-ld.enable = true;
+programs.nix-ld.libraries = with pkgs; [
+  # spirit-vale-overlay (neutralinojs) dependencies
+  libxcb # libxcb.so.1
+  gtk3 # libgtk-3.so.0
+  cairo # libcairo.so.2
+  gdk-pixbuf # libgdk_pixbuf-2.0.so.0
+  glib # libgobject-2.0.so.0
+  libx11 # libX11.so.6
+  libxrandr # libXrandr.so.2
+  libxtst # libXtst.so.6
+  libpng # libpng16.so.16
+  # spirit-vale-tools dependencies
+  libpcap # libpcap.so
+];
+# In configuration.nix or a module
+security.wrappers.bun-pcap = {
+  source = "${pkgs.bun}/bin/bun";
+  owner = "root";
+  group = "root";
+  capabilities = "cap_net_raw,cap_net_admin+eip";
+};
 
 
   # Some programs need SUID wrappers, can be configured further or are
