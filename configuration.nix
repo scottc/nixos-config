@@ -248,27 +248,8 @@
   # This is so we can keep track of what is needed or can be cleanned up.
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
-    stdenv.cc.cc
-    zlib
-    openssl
-    curl
-    # WebKit / GTK stack that electrobun needs
-    webkitgtk_4_1
-    gtk3
-    libsoup_3
-    glib
-    cairo
-    pango
-    gdk-pixbuf
-    # optional but often pulled in
-    librsvg
-    libayatana-appindicator
-    xorg.libX11
-    libxkbcommon
-    wayland
-    mesa
-    # npcap replacement
-    libpcap
+    libxcb
+    libpcap # npcap replacement
   ];
   # In configuration.nix or a module
   security.wrappers.bun-pcap = {
