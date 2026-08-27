@@ -262,8 +262,8 @@
     ]);
     # optional but often helps WebKit on NixOS / NVIDIA:
     # WEBKIT_DISABLE_DMABUF_RENDERER = "1";
+    LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.libpcap ];
   };
-
 
   # Workaround for dynamically linked applications, we can redirect them to libraries specified here...
   # List of apps, that required these shared objects...:
