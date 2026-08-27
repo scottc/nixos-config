@@ -254,9 +254,10 @@
     gtk3 # libgtk-3.so.0
     cairo # libcairo.so.2
     gdk-pixbuf # libgdk_pixbuf-2.0.so.0
-    # gobject-introspection # libgobject-2.0.so.0
-    gobject-introspection-unwrapped # libgobject-2.0.so.0
-    libpcap # npcap replacement for spirit-vale-tools
+    glib # libgobject-2.0.so.0
+    libx11 # libX11.so.6
+    # spirit-vale-tools
+    libpcap # libpcap.so
   ];
   # In configuration.nix or a module
   security.wrappers.bun-pcap = {
