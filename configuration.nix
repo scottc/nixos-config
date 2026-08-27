@@ -244,12 +244,14 @@
 
   # Workaround for dynamically linked applications, we can redirect them to libraries specified here...
   # List of apps, that required these shared objects...:
-  # /home/anon/Projects/spirit-vale-overlay/node_modules/.bun/electrobun@1.18.1/node_modules/electrobun/bin/electrobun
+  # /home/anon/Projects/spirit-vale-overlay
+  # /home/anon/Projects/spirit-vale-tools
   # This is so we can keep track of what is needed or can be cleanned up.
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     libxcb
     gtk3
+    cairo
     libpcap # npcap replacement
   ];
   # In configuration.nix or a module
