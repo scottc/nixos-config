@@ -250,11 +250,12 @@
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     # spirit-vale-overlay dependencies
-    libxcb
-    gtk3
-    cairo
-    gdk-pixbuf
-    gobject-introspection
+    libxcb # libxcb.so.1
+    gtk3 # libgtk-3.so.0
+    cairo # libcairo.so.2
+    gdk-pixbuf # libgdk_pixbuf-2.0.so.0
+    # gobject-introspection # libgobject-2.0.so.0
+    gobject-introspection-unwrapped # libgobject-2.0.so.0
     libpcap # npcap replacement for spirit-vale-tools
   ];
   # In configuration.nix or a module
