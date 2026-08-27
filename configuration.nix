@@ -269,6 +269,10 @@ programs.nix-ld.libraries = with pkgs; [
   harfbuzz
   atk
   libsoup_3
+
+  # And then some more...
+  gst_all_1.gstreamer
+  gst_all_1.gst-plugins-base
 ];
 # In configuration.nix or a module
 security.wrappers.bun-pcap = {
