@@ -242,6 +242,29 @@
   };
 
 
+
+
+    environment.systemPackages = with pkgs; [
+    gst_all_1.gstreamer
+    gst_all_1.gst-plugins-base
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-libav
+  ];
+
+  environment.sessionVariables = {
+    GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (with pkgs.gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-libav
+    ]);
+    # optional but often helps WebKit on NixOS / NVIDIA:
+    # WEBKIT_DISABLE_DMABUF_RENDERER = "1";
+  };
+
+
   # Workaround for dynamically linked applications, we can redirect them to libraries specified here...
   # List of apps, that required these shared objects...:
   # /home/anon/Projects/spirit-vale-overlay (neutralinojs)
