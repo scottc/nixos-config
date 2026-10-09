@@ -34,6 +34,7 @@
     # Social & Communications
     # pkgs.hexchat # gtk2 based irc client
     pkgs.kdePackages.konversation # kde irc client
+    pkgs.kdePackages.filelight # disk usage analyzer - Quickly visualize your disk space usage
     pkgs.telegram-desktop
     # pkgs.python313Packages.nomadnet # reticulum client
     # pkgs.rns # reticulum service
