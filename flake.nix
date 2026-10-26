@@ -15,7 +15,7 @@
     # See flake.lock for exact pinned versions.
   };
 
-  outputs = { nixpkgs, home-manager, nixos-hardware, 
+  outputs = { nixpkgs, home-manager, nixos-hardware,
     # hermes-agent, # temporary uninstalled.
     ... } @ inputs:
   let
@@ -24,6 +24,7 @@
     # nix2411pkgs = inputs.nix2411pkgs.legacyPackages.${system};
   in
   {
+    # packages.${system}.quiver-launcher = pkgs.callPackage ./quiver-launcher.nix { };
 
     # packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
 

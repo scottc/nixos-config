@@ -100,8 +100,8 @@
     variant = "";
   };
 
-  # Enable input-remapper service, for keyboard macros
-  services.input-remapper.enable = true;
+  # # Enable input-remapper service, for keyboard macros
+  # services.input-remapper.enable = true;
 
 
 
@@ -165,11 +165,11 @@
   #   package = hermes-agent.packages.${pkgs.system}.full;   # .full or .default # This pulls in edge-tts + web + desktop etc.
   # };
 
-  # Passwordless docker access, for `hermes chat`
-  security.sudo.extraRules = [{
-    users = [ "anon" ];
-    commands = [{ command = "/run/current-system/sw/bin/docker"; options = [ "NOPASSWD" ]; }];
-  }];
+  # # Passwordless docker access, for `hermes chat`
+  # security.sudo.extraRules = [{
+  #   users = [ "anon" ];
+  #   commands = [{ command = "/run/current-system/sw/bin/docker"; options = [ "NOPASSWD" ]; }];
+  # }];
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -180,7 +180,7 @@
       anon = {
         isNormalUser = true;
         description = "anon";
-        extraGroups = [ "networkmanager" "wheel" "hermes" ];
+        extraGroups = [ "networkmanager" "wheel" ];
         packages = with pkgs; [
           # Use home-manager instead.
         ];
@@ -244,67 +244,27 @@
 
 
 
-    environment.systemPackages = with pkgs; [
-    gst_all_1.gstreamer
-    gst_all_1.gst-plugins-base
-    gst_all_1.gst-plugins-good
-    gst_all_1.gst-plugins-bad
-    gst_all_1.gst-libav
-  ];
-
-  environment.sessionVariables = {
-    GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (with pkgs.gst_all_1; [
-      gstreamer
-      gst-plugins-base
-      gst-plugins-good
-      gst-plugins-bad
-      gst-libav
-    ]);
-    # optional but often helps WebKit on NixOS / NVIDIA:
-    # WEBKIT_DISABLE_DMABUF_RENDERER = "1";
-    LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.libpcap ];
-  };
-
-  # Workaround for dynamically linked applications, we can redirect them to libraries specified here...
-  # List of apps, that required these shared objects...:
-  # /home/anon/Projects/spirit-vale-overlay (neutralinojs)
-  # /home/anon/Projects/spirit-vale-tools
-  # This is so we can keep track of what is needed or can be cleanned up.
-programs.nix-ld.enable = true;
-programs.nix-ld.libraries = with pkgs; [
-  # spirit-vale-overlay (neutralinojs) dependencies
-  libxcb # libxcb.so.1
-  gtk3 # libgtk-3.so.0
-  cairo # libcairo.so.2
-  gdk-pixbuf # libgdk_pixbuf-2.0.so.0
-  glib # libgobject-2.0.so.0
-  libx11 # libX11.so.6
-  libxrandr # libXrandr.so.2
-  libxtst # libXtst.so.6
-  libpng # libpng16.so.16
-  # spirit-vale-tools dependencies
-  libpcap # libpcap.so
-
-  # suggested by grok... misc...
-  stdenv.cc.cc.lib   # libstdc++
-  webkitgtk_4_1      # webview (dlopen)
-  pango
-  harfbuzz
-  atk
-  libsoup_3
-
-  # And then some more...
-  gst_all_1.gstreamer
-  gst_all_1.gst-plugins-base
-];
-# In configuration.nix or a module
-security.wrappers.bun-pcap = {
-  source = "${pkgs.bun}/bin/bun";
-  owner = "root";
-  group = "root";
-  capabilities = "cap_net_raw,cap_net_admin+eip";
-};
-
+#     environment.systemPackages = with pkgs; [
+#     gst_all_1.gstreamer
+#     gst_all_1.gst-plugins-base
+#     gst_all_1.gst-plugins-good
+#     gst_all_1.gst-plugins-bad
+#     gst_all_1.gst-libav
+#   ];
+#
+#   environment.sessionVariables = {
+#     GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (with pkgs.gst_all_1; [
+#       gstreamer
+#       gst-plugins-base
+#       gst-plugins-good
+#       gst-plugins-bad
+#       gst-libav
+#     ]);
+#
+#
+#     # optional but often helps WebKit on NixOS / NVIDIA:
+#     # WEBKIT_DISABLE_DMABUF_RENDERER = "1";
+#   };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

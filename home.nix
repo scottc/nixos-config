@@ -41,7 +41,7 @@
 
     # Screen Capture & streaming
     pkgs.obs-studio
-    
+
     # Multimedia
     pkgs.mpv
     pkgs.lbry
@@ -57,6 +57,7 @@
 
     # Game Managers
     # pkgs.lutris
+    (pkgs.callPackage ./quiver-launcher.nix { })
 
     # Games
     # pkgs.space-cadet-pinball
