@@ -241,7 +241,23 @@
     lfs.enable = true;
   };
 
+  # FUSE – provides the setuid fusermount / fusermount3 wrappers
+  programs.fuse.enable = true;
 
+  # Seamless AppImage support (binfmt + better default environment)
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+    package = pkgs.appimage-run.override {
+      extraPkgs = pkgs: with pkgs; [
+        icu
+        libdecor
+        fuse
+        fuse3
+        # add more common game libs here if needed
+      ];
+    };
+  };
 
 
 #     environment.systemPackages = with pkgs; [

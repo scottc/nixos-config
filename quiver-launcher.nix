@@ -1,18 +1,24 @@
 # quiver-launcher.nix
-{
-  lib,
-  appimageTools,
-  fetchurl,
-  icu,
-  openssl,
-  zlib,
-  libGL,
-  xorg,
-  fontconfig,
-  freetype,
-  libxkbcommon,
-  wayland,
-  ...
+{ lib
+, appimageTools
+, fetchurl
+, icu
+, openssl
+, zlib
+, libGL
+, libx11
+, libxcursor
+, libxrandr
+, libxi
+, libxext
+, fontconfig
+, freetype
+, libxkbcommon
+, wayland
+, fuse
+, fuse3
+, libdecor
+, ...
 }:
 
 let
@@ -21,8 +27,7 @@ let
 
   src = fetchurl {
     url = "https://github.com/tgeorgiadis/quiver-launcher/releases/download/v${version}/QuiverLauncher-linux-x64.AppImage";
-    # Run once with a wrong hash (or leave empty) and Nix will tell you the correct one:
-    hash = "sha256-qM1TmLba6SS87Ans4XgcA8v9cymGdUdvJvwcBy08Yps=";  # replace after first build
+    hash = "sha256-qM1TmLba6SS87Ans4XgcA8v9cymGdUdvJvwcBy08Yps=";
   };
 
   appimageContents = appimageTools.extract { inherit pname version src; };
@@ -30,7 +35,6 @@ in
 appimageTools.wrapType2 {
   inherit pname version src;
 
-  # Critical: give the .NET AppImage ICU + common Avalonia/OpenGL deps
   extraPkgs = pkgs: with pkgs; [
     icu
     openssl
@@ -40,47 +44,50 @@ appimageTools.wrapType2 {
     freetype
     libxkbcommon
     wayland
+    fuse
+    fuse3
+    libdecor
     libx11
     libxcursor
     libxrandr
     libxi
     libxext
-    # add more here if strace / ldd shows missing .so files later
   ];
 
+  # Make the setuid FUSE wrappers visible to nested AppImages
+  profile = ''
+    export FUSERMOUNT_PROG=/run/wrappers/bin/fusermount3
+    export PATH=/run/wrappers/bin:$PATH
+  '';
+
   extraInstallCommands = ''
-    # Nice binary name
+    # Clean binary name
     mv $out/bin/${pname}-${version} $out/bin/${pname} || true
     ln -sf $out/bin/${pname} $out/bin/QuiverLauncher || true
 
-    # Desktop entry + icon (best-effort)
     mkdir -p $out/share/applications $out/share/icons/hicolor/256x256/apps
-    if [ -f ${appimageContents}/quiver-launcher.desktop ] || [ -f ${appimageContents}/*.desktop ]; then
-      cp ${appimageContents}/*.desktop $out/share/applications/ 2>/dev/null || true
-      substituteInPlace $out/share/applications/*.desktop \
-        --replace-fail 'Exec=AppRun' "Exec=$out/bin/${pname}" \
-        --replace-fail 'Exec=QuiverLauncher' "Exec=$out/bin/${pname}" || true
-    else
-      cat > $out/share/applications/quiver-launcher.desktop <<EOF
-[Desktop Entry]
-Name=Quiver Launcher
-Comment=Launcher for GitHub/GitLab releases
-Exec=$out/bin/${pname}
-Icon=quiver-launcher
-Type=Application
-Categories=Game;Utility;
-EOF
-    fi
 
-    # Icon (if present inside the AppImage)
-    find ${appimageContents} -name "*.png" -o -name "*.svg" | head -1 | xargs -I{} cp {} $out/share/icons/hicolor/256x256/apps/quiver-launcher.png 2>/dev/null || true
+    # Proper desktop file (fixes the kf.service warning)
+    cat > $out/share/applications/QuiverLauncher.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=Quiver Launcher
+Comment=Modern launcher for GitHub / GitLab releases
+Exec=${pname}
+Icon=quiver-launcher
+Terminal=false
+Categories=Game;Utility;
+StartupNotify=true
+EOF
+
+    # Best-effort icon
+    find ${appimageContents} \( -name "*.png" -o -name "*.svg" \) | head -1 \
+      | xargs -I{} cp {} $out/share/icons/hicolor/256x256/apps/quiver-launcher.png 2>/dev/null || true
   '';
 
   meta = with lib; {
-    description = "Modern launcher for downloading, installing and running apps from GitHub and GitLab releases";
+    description = "Launcher for downloading and running apps from GitHub/GitLab releases";
     homepage = "https://quiverlauncher.com";
-    downloadPage = "https://github.com/tgeorgiadis/quiver-launcher/releases";
-    license = licenses.mit; # check the actual LICENSE in the repo
     platforms = [ "x86_64-linux" ];
     sourceProvenance = with sourceTypes; [ binaryNativeCode ];
     mainProgram = "quiver-launcher";
